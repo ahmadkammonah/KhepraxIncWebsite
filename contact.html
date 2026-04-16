@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Kheprax</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230f0f0f'/><text y='23' x='5' font-size='20' fill='%23d4920a' font-family='sans-serif' font-weight='700'>K</text></svg>" />
+</head>
+<body class="page">
+
+  <nav>
+    <div class="container">
+      <a href="index.html" class="nav-logo">Khep<span>r</span>ax</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="badge">Get in Touch</span>
+      <h1>Let's Talk About<br>Your Project</h1>
+      <p>No sales pitch — just an honest conversation about whether we can help and what that looks like.</p>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <span class="section-label">Contact</span>
+          <h2>We're in Mississauga, ON</h2>
+          <p style="margin-top:0.75rem;">We work with clients across the GTA and Southern Ontario. For larger engagements, we travel.</p>
+          <div class="contact-detail">
+            <div class="contact-detail-item">
+              <label>Email</label>
+              <a href="mailto:hello@kheprax.ca">hello@kheprax.ca</a>
+            </div>
+            <div class="contact-detail-item">
+              <label>Location</label>
+              <span>Mississauga, Ontario, Canada</span>
+            </div>
+            <div class="contact-detail-item">
+              <label>Response Time</label>
+              <span>Within 1–2 business days</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+              </div>
+              <div class="form-group">
+                <label for="company">Company</label>
+                <input type="text" id="company" name="company" placeholder="Acme Corp" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="jane@company.com" required />
+            </div>
+            <div class="form-group">
+              <label for="industry">Industry</label>
+              <select id="industry" name="industry">
+                <option value="" disabled selected>Select your industry</option>
+                <option>Food & Beverage</option>
+                <option>Mining</option>
+                <option>Manufacturing</option>
+                <option>Oil & Gas</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">What are you working on?</label>
+              <textarea id="message" name="message" placeholder="Describe your project, challenge, or question..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">Send Message →</button>
+            <p class="form-note">We'll get back to you within 1–2 business days.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">Khep<span>r</span>ax</div>
+          <p class="footer-desc">Ontario-based engineering services for industrial automation and digital transformation.</p>
+        </div>
+        <div class="footer-links">
+          <h5>Pages</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="case-studies.html">Case Studies</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="mailto:hello@kheprax.ca">hello@kheprax.ca</a></li>
+            <li><span style="color:var(--gray-400);font-size:0.85rem;">Mississauga, Ontario</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Kheprax Inc. All rights reserved.</p>
+        <p>Registered in Ontario, Canada</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
