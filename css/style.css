@@ -144,7 +144,7 @@ nav {
   padding: 4rem clamp(1.5rem, 5%, 6rem);
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
   gap: 48px;
   align-items: center;
 }
@@ -190,6 +190,7 @@ nav {
 .anim-wrap {
   position: relative;
   width: 100%;
+  overflow: hidden;
   opacity: 0;
   animation: heroIn 1s 0.5s ease-out forwards;
 }
