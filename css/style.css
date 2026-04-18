@@ -215,9 +215,6 @@ nav {
   color: var(--amber-dark);
   opacity: 0;
   white-space: nowrap;
-  animation-duration: 14s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
 }
 .anim-dot {
   display: inline-block; flex-shrink: 0;
@@ -226,77 +223,10 @@ nav {
   clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
   font-style: normal;
 }
-.anim-label-1 { animation-name: labelPhase1; }
-.anim-label-2 { animation-name: labelPhase2; }
-.anim-label-3 { animation-name: labelPhase3; }
-.anim-label-4 { animation-name: labelPhase4; }
 
-@keyframes labelPhase1 {
-  0%   { opacity: 0; }
-  2%   { opacity: 1; }
-  18%  { opacity: 1; }
-  20%  { opacity: 0; }
-  100% { opacity: 0; }
-}
-@keyframes labelPhase2 {
-  0%, 20% { opacity: 0; }
-  22%     { opacity: 1; }
-  40%     { opacity: 1; }
-  42%     { opacity: 0; }
-  100%    { opacity: 0; }
-}
-@keyframes labelPhase3 {
-  0%, 42% { opacity: 0; }
-  44%     { opacity: 1; }
-  60%     { opacity: 1; }
-  62%     { opacity: 0; }
-  100%    { opacity: 0; }
-}
-@keyframes labelPhase4 {
-  0%, 62% { opacity: 0; }
-  64%     { opacity: 1; }
-  87%     { opacity: 1; }
-  89%     { opacity: 0; }
-  100%    { opacity: 0; }
-}
-
-/* Cube animation keyframes */
-.c {
-  transform: translate(var(--sx), var(--sy));
-  animation: cubeFlow 14s infinite ease-in-out;
-  animation-delay: var(--d);
-}
-.c use {
-  animation: microDrift 3s infinite ease-in-out;
-  transform-origin: center;
-  transform-box: fill-box;
-}
-@keyframes microDrift {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-3px); }
-}
-@keyframes cubeFlow {
-  0%, 20% { transform: translate(var(--sx), var(--sy)); }
-  29%     { transform: translate(calc((var(--sx) + var(--mx)) / 2), calc((var(--sy) + var(--my)) / 2 - 25px)); }
-  38%     { transform: translate(var(--mx), var(--my)); }
-  42%     { transform: translate(var(--mx), var(--my)); }
-  52%     { transform: translate(calc((var(--mx) + var(--gx)) / 2), calc((var(--my) + var(--gy)) / 2 - 6px)); }
-  62%     { transform: translate(var(--gx), var(--gy)); }
-  77%     { transform: translate(var(--gx), var(--gy)) scale(1); }
-  82%     { transform: translate(var(--gx), var(--gy)) scale(1.015); }
-  87%     { transform: translate(var(--gx), var(--gy)) scale(1); }
-  100%    { transform: translate(var(--sx), var(--sy)); }
-}
-.final-halo {
-  animation: haloGlow 14s infinite ease-in-out;
-  transform-origin: 600px 380px;
-}
-@keyframes haloGlow {
-  0%, 62%   { opacity: 0; transform: scale(0.85); }
-  72%       { opacity: 0.5; transform: scale(1); }
-  82%       { opacity: 0.45; transform: scale(1.03); }
-  90%, 100% { opacity: 0; transform: scale(0.85); }
-}
+/* Cube initial positions — GSAP overrides these at runtime */
+.c { transform: translate(var(--sx), var(--sy)); }
+.final-halo { transform-origin: 600px 380px; }
 
 /* SERVICES */
 .services { background: var(--gray-100); }
@@ -591,17 +521,9 @@ footer { background: var(--gray-100); border-top: 1px solid var(--gray-200); pad
   .hero-sub { font-size: 1rem; }
 }
 
-/* Reduced motion — snap cubes to final assembled state, no looping */
+/* Reduced motion — GSAP handles snap-to-final in JS; just ensure hero fades are instant */
 @media (prefers-reduced-motion: reduce) {
-  .c {
-    animation: none !important;
-    transform: translate(var(--gx), var(--gy)) !important;
-  }
-  .c use { animation: none !important; }
-  .final-halo { animation: none !important; opacity: 0.4 !important; }
   .anim-wrap { opacity: 1 !important; animation: none !important; }
-  .anim-label { animation: none !important; }
-  .anim-label-4 { opacity: 1 !important; }
   .hero-content, .hero-content h1, .hero-sub, .hero-divider, .hero-industries {
     opacity: 1 !important; transform: none !important; animation: none !important;
   }
