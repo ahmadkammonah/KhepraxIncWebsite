@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+bower_components/
+
+# Package manager locks (keep one, ignore others)
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+
+# Build output
+dist/
+build/
+out/
+.next/
+.nuxt/
+.vuepress/dist/
+.cache/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+*.suo
+*.user
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temp files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Sass cache
+.sass-cache/
+*.css.map
+*.js.map
+
+# Certificates and keys
+*.pem
+*.key
+*.cert
