@@ -134,23 +134,20 @@ nav {
     linear-gradient(90deg, var(--gray-200) 1px, transparent 1px);
   background-size: 56px 56px;
   opacity: 0.5;
-  mask-image: radial-gradient(ellipse 80% 80% at 25% 50%, black 20%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 25% 50%, black 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 80% at 20% 50%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 80% at 20% 50%, black 20%, transparent 70%);
 }
 
-.hero-inner {
-  position: relative; z-index: 1;
+.hero-text {
+  position: relative; z-index: 2;
   max-width: 1760px; margin: 0 auto;
   padding: 4rem clamp(1.5rem, 5%, 6rem);
   width: 100%;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
-  gap: 48px;
-  align-items: center;
 }
 
 .hero-content {
   position: relative; text-align: left;
+  max-width: 520px;
   animation: heroIn 0.6s ease both;
 }
 
@@ -186,27 +183,37 @@ nav {
 .hero-industries-list { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; row-gap: 0.4rem; }
 .hero-industries-list span { font-size: 0.875rem; color: var(--gray-600); font-weight: 500; }
 
-/* Animation panel */
+/* Animation panel — full-bleed behind hero text */
 .anim-wrap {
-  position: relative;
-  width: 100%;
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
   overflow: hidden;
+  pointer-events: none;
   opacity: 0;
   animation: heroIn 1s 0.5s ease-out forwards;
 }
+.anim-wrap::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to right,
+    white 0%, white 28%,
+    rgba(255,255,255,0.75) 44%,
+    transparent 62%
+  );
+  pointer-events: none;
+}
 .anim-wrap svg {
-  width: 100%;
-  height: auto;
-  display: block;
-  overflow: visible;
+  width: 100%; height: 100%; display: block;
 }
 
 /* Phase labels */
 .anim-labels {
-  position: relative;
-  height: 28px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 4px;
+  position: absolute;
+  top: clamp(1.5rem, 6%, 3rem);
+  right: clamp(1.5rem, 5%, 4rem);
+  z-index: 4;
+  display: flex; align-items: center;
 }
 .anim-label {
   position: absolute;
@@ -473,14 +480,9 @@ footer { background: var(--gray-100); border-top: 1px solid var(--gray-200); pad
 
 /* RESPONSIVE */
 
-/* Tablet — collapse hero to single column */
+/* Tablet */
 @media (max-width: 1024px) {
-  .hero-inner {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 3rem 2rem;
-  }
-  .anim-wrap { max-width: 520px; margin: 0 auto; }
+  .hero-text { padding: 3rem 2rem; }
 }
 
 /* Large phone / small tablet */
@@ -514,9 +516,7 @@ footer { background: var(--gray-100); border-top: 1px solid var(--gray-200); pad
 /* Phone */
 @media (max-width: 480px) {
   section { padding: 48px 0; }
-  .hero-inner { padding: 1.75rem 1.25rem; gap: 20px; }
-  /* Limit animation height so it doesn't dominate on small screens */
-  .anim-wrap { max-width: 100%; max-height: 220px; overflow: hidden; }
+  .hero-text { padding: 14px 20px; }
   .cs-card { width: 88%; }
   .hero-industries-list { gap: 0.75rem; }
   .hero-sub { font-size: 1rem; }
