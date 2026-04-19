@@ -17,22 +17,32 @@
   gsap.set(cubes, { x: i => pos[i].sx, y: i => pos[i].sy });
   gsap.set(halo,  { opacity: 0, scale: 0.85, transformOrigin: '600px 380px' });
 
-  // Compute each step node's top offset relative to .anim-labels
-  function stepTop(i) {
+  function isMobile() { return window.innerWidth <= 1024; }
+
+  // Compute traveler position relative to .anim-labels — axis depends on breakpoint
+  function stepPos(i) {
     const lr = labelsEl.getBoundingClientRect();
     const nr = stepEls[i].querySelector('.anim-step-node').getBoundingClientRect();
-    return nr.top - lr.top;
+    return isMobile()
+      ? { left: nr.left - lr.left }
+      : { top:  nr.top  - lr.top  };
   }
 
   function activateStep(i) {
     stepEls.forEach(el => el.classList.remove('active'));
     stepEls[i].classList.add('active');
-    gsap.to(traveler, { top: stepTop(i), duration: 0.55, ease: 'power2.inOut' });
+    gsap.to(traveler, { ...stepPos(i), duration: 0.55, ease: 'power2.inOut' });
   }
 
   // Initialise: step 0 active, traveler at step 0
-  gsap.set(traveler, { top: stepTop(0) });
+  gsap.set(traveler, stepPos(0));
   stepEls[0].classList.add('active');
+
+  // Re-snap traveler on resize (breakpoint may flip axis)
+  window.addEventListener('resize', () => {
+    const active = stepEls.findIndex(el => el.classList.contains('active'));
+    gsap.set(traveler, stepPos(active >= 0 ? active : 0));
+  });
 
   if (reduced) {
     gsap.set(cubes, { x: i => pos[i].gx, y: i => pos[i].gy });
