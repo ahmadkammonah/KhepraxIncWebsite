@@ -151,15 +151,15 @@ function initCsCarousel() {
 
   // ── 9. Touch drag ──────────────────────────────────────────────────────────
   let touchStartX = 0;
-  track.addEventListener('touchstart', e => {
+  viewport.addEventListener('touchstart', e => {
     if (isTransitioning) return;
     touchStartX = e.touches[0].clientX;
   }, { passive: true });
-  track.addEventListener('touchmove', e => {
+  viewport.addEventListener('touchmove', e => {
     if (!touchStartX) return;
     applyTransform(baseOffset - (e.touches[0].clientX - touchStartX), false);
   }, { passive: true });
-  track.addEventListener('touchend', e => {
+  viewport.addEventListener('touchend', e => {
     const delta = e.changedTouches[0].clientX - touchStartX;
     touchStartX = 0;
     if (delta < -60) goTo(current + 1);
