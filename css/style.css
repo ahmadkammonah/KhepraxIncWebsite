@@ -130,12 +130,12 @@ nav {
 .hero-bg {
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(var(--gray-200) 1px, transparent 1px),
-    linear-gradient(90deg, var(--gray-200) 1px, transparent 1px);
+    linear-gradient(var(--gray-300) 1px, transparent 1px),
+    linear-gradient(90deg, var(--gray-300) 1px, transparent 1px);
   background-size: 56px 56px;
-  opacity: 0.5;
-  mask-image: radial-gradient(ellipse 60% 80% at 20% 50%, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 60% 80% at 20% 50%, black 20%, transparent 70%);
+  opacity: 0.9;
+  mask-image: linear-gradient(to right, black 0%, rgba(0,0,0,0.7) 14%, transparent 32%, transparent 68%, rgba(0,0,0,0.7) 86%, black 100%);
+  -webkit-mask-image: linear-gradient(to right, black 0%, rgba(0,0,0,0.7) 14%, transparent 32%, transparent 68%, rgba(0,0,0,0.7) 86%, black 100%);
 }
 
 .hero-text {
@@ -197,9 +197,12 @@ nav {
   position: absolute; inset: 0;
   background: linear-gradient(
     to right,
-    white 0%, white 28%,
-    rgba(255,255,255,0.75) 44%,
-    transparent 62%
+    white 0%,
+    rgba(255,255,255,0.85) 14%,
+    transparent 30%,
+    transparent 70%,
+    rgba(255,255,255,0.85) 86%,
+    white 100%
   );
   pointer-events: none;
 }
@@ -207,30 +210,62 @@ nav {
   width: 100%; height: 100%; display: block;
 }
 
-/* Phase labels */
+/* Phase stepper */
 .anim-labels {
   position: absolute;
-  top: clamp(1.5rem, 6%, 3rem);
-  right: clamp(1.5rem, 5%, 4rem);
+  top: 50%; right: clamp(1.5rem, 5%, 4rem);
+  transform: translateY(-50%);
   z-index: 4;
-  display: flex; align-items: center;
+  display: flex; flex-direction: column; gap: 1.4rem;
+  padding: 1.1rem 1rem 1.1rem 1rem;
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 10px;
 }
-.anim-label {
+.anim-labels::before {
+  content: '';
   position: absolute;
-  display: flex; align-items: center; gap: 7px;
-  font-size: 0.72rem; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--amber-dark);
-  opacity: 0;
-  white-space: nowrap;
+  /* center on the 9px nodes: padding-left(1rem≈16px) + 4px = ~20px */
+  left: calc(1rem + 4px); top: 1.1rem; bottom: 1.1rem;
+  width: 1px;
+  background: rgba(212, 146, 10, 0.25);
 }
-.anim-dot {
-  display: inline-block; flex-shrink: 0;
-  width: 5px; height: 5px;
+.anim-traveler {
+  position: absolute;
+  /* align with node left edge */
+  left: 1rem; top: 0;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--amber-lt);
+  box-shadow: 0 0 10px 4px rgba(245, 183, 48, 0.55);
+  pointer-events: none;
+  z-index: 1;
+}
+.anim-step {
+  display: flex; align-items: center; gap: 10px;
+  opacity: 0.35;
+  transition: opacity 0.45s ease;
+}
+.anim-step.active { opacity: 1; }
+.anim-step-node {
+  width: 9px; height: 9px; border-radius: 50%;
+  border: 1.5px solid rgba(212, 146, 10, 0.35);
+  background: transparent; flex-shrink: 0;
+  transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+}
+.anim-step.active .anim-step-node {
   background: var(--amber);
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-  font-style: normal;
+  border-color: var(--amber);
+  box-shadow: 0 0 6px 2px rgba(212, 146, 10, 0.4);
 }
+.anim-step-text {
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gray-400); white-space: nowrap;
+  transition: color 0.4s;
+}
+.anim-step.active .anim-step-text { color: var(--amber-dark); }
 
 /* Cube initial positions — GSAP overrides these at runtime */
 .c { transform: translate(var(--sx), var(--sy)); }

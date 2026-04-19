@@ -3,12 +3,9 @@
 
   const cubes    = gsap.utils.toArray('.c');
   const halo     = document.querySelector('.final-halo');
-  const labelEls = [
-    document.querySelector('.anim-label-1'),
-    document.querySelector('.anim-label-2'),
-    document.querySelector('.anim-label-3'),
-    document.querySelector('.anim-label-4'),
-  ];
+  const labelsEl = document.querySelector('.anim-labels');
+  const stepEls  = Array.from(document.querySelectorAll('.anim-step'));
+  const traveler = document.querySelector('.anim-traveler');
 
   // Read SVG coordinate positions from CSS custom properties
   const pos = cubes.map(el => {
@@ -20,10 +17,27 @@
   gsap.set(cubes, { x: i => pos[i].sx, y: i => pos[i].sy });
   gsap.set(halo,  { opacity: 0, scale: 0.85, transformOrigin: '600px 380px' });
 
+  // Compute each step node's top offset relative to .anim-labels
+  function stepTop(i) {
+    const lr = labelsEl.getBoundingClientRect();
+    const nr = stepEls[i].querySelector('.anim-step-node').getBoundingClientRect();
+    return nr.top - lr.top;
+  }
+
+  function activateStep(i) {
+    stepEls.forEach(el => el.classList.remove('active'));
+    stepEls[i].classList.add('active');
+    gsap.to(traveler, { top: stepTop(i), duration: 0.55, ease: 'power2.inOut' });
+  }
+
+  // Initialise: step 0 active, traveler at step 0
+  gsap.set(traveler, { top: stepTop(0) });
+  stepEls[0].classList.add('active');
+
   if (reduced) {
     gsap.set(cubes, { x: i => pos[i].gx, y: i => pos[i].gy });
     gsap.set(halo,  { opacity: 0.35, scale: 1 });
-    gsap.set(labelEls[3], { opacity: 1 });
+    activateStep(3);
     return;
   }
 
@@ -64,12 +78,12 @@
     stagger: { amount: 0.4, from: 'random' },
   }, 12.32);
 
-  // Labels — fade in/out at phase boundaries
-  const FADE = 0.25;
-  [[0, 0.3, 2.55], [1, 3.05, 5.63], [2, 6.13, 8.43], [3, 8.93, 12.07]].forEach(([i, inT, outT]) => {
-    tl.to(labelEls[i], { opacity: 1, duration: FADE }, inT);
-    tl.to(labelEls[i], { opacity: 0, duration: FADE }, outT);
+  // Step activations — traveler flows to each step at phase start
+  [[0, 0.3], [1, 2.8], [2, 5.88], [3, 8.93]].forEach(([i, t]) => {
+    tl.add(() => activateStep(i), t);
   });
+  // Return to step 0 when cubes dissolve back to scatter
+  tl.add(() => activateStep(0), 12.32);
 
   // Micro-drift — independent yoyo on each cube's <use>, random phase offset
   cubes.forEach(el => {
